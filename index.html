@@ -2,291 +2,354 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Habit Tracker Pro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Habit Tracker</title>
 
 <style>
-:root {
-  --bg-light: linear-gradient(135deg, #667eea, #764ba2);
-  --bg-dark: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-
-  --card-light: #ffffff;
-  --card-dark: rgba(255, 255, 255, 0.08);
-
-  --text-light: #333;
-  --text-dark: #fff;
-}
-
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  transition: 0.4s;
-  background: var(--bg-light);
+  background: linear-gradient(135deg, #6a5acd, #836fff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  transition: 0.3s;
 }
 
-/* Dark Mode */
-body.dark {
-  background: var(--bg-dark);
-}
-
-/* Container */
-.container {
-  width: 350px;
-  margin: 40px auto;
-  padding: 20px;
+/* Card */
+.card {
+  width: 95%;
+  max-width: 400px;
+  background: #f3f3f3;
   border-radius: 20px;
-  text-align: center;
-  backdrop-filter: blur(10px);
-  transition: 0.4s;
+  padding: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* Light Card */
-body:not(.dark) .container {
-  background: var(--card-light);
-  color: var(--text-light);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-/* Dark Card */
-body.dark .container {
-  background: var(--card-dark);
-  color: var(--text-dark);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-/* Toggle */
-.top-bar {
+/* Header */
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.mode-toggle {
-  cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 10px;
+#themeToggle {
+  background: #ff8c66;
   border: none;
-  background: #ff7e5f;
-  color: white;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
 }
 
 /* Buttons */
-.toggle-btns button {
-  padding: 8px 16px;
-  border-radius: 10px;
-  border: none;
-  margin: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
+.toggle-btns {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
 }
 
-.toggle-btns .active {
-  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+.toggle-btns button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.active {
+  background: #ff8c66;
   color: white;
 }
 
 /* Date */
-input[type="date"] {
-  padding: 8px;
+#date {
+  width: 100%;
+  padding: 10px;
   border-radius: 10px;
   border: none;
-  margin: 10px 0;
 }
 
-/* Progress Circle */
+/* Progress */
+.progress-container {
+  width: 140px;
+  height: 140px;
+  margin: 15px auto;
+  position: relative;
+}
+
 .progress-circle {
-  width: 130px;
-  height: 130px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  margin: 20px auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: conic-gradient(#4da6ff 0%, #ddd 0%);
+  transition: 0.3s;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-size: 22px;
   font-weight: bold;
-  transition: 0.5s;
-  background: conic-gradient(#4facfe 0%, #eee 0%);
 }
 
 /* Tasks */
 .task {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
-  border-radius: 12px;
-  margin: 6px 0;
-  transition: 0.3s;
   align-items: center;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 12px;
+  background: #e5e5e5;
+  font-size: 14px;
+  transition: all 0.3s ease;
 }
 
-/* Light tasks */
-body:not(.dark) .task {
-  background: #f5f7fa;
-}
-
-/* Dark tasks */
-body.dark .task {
-  background: rgba(255,255,255,0.08);
-}
-
+/* Hover */
 .task:hover {
   transform: scale(1.03);
 }
 
-.task input {
-  transform: scale(1.2);
-  accent-color: #667eea;
+/* Checked animation */
+.task.checked {
+  background: linear-gradient(135deg, #6ee7b7, #3b82f6);
+  color: white;
+  transform: scale(1.02);
 }
 
-/* Color Borders */
-.task:nth-child(1) { border-left: 5px solid #ff6b6b; }
-.task:nth-child(2) { border-left: 5px solid #6bcB77; }
-.task:nth-child(3) { border-left: 5px solid #4d96ff; }
-.task:nth-child(4) { border-left: 5px solid #ffd93d; }
-.task:nth-child(5) { border-left: 5px solid #845ec2; }
-.task:nth-child(6) { border-left: 5px solid #ff9671; }
-.task:nth-child(7) { border-left: 5px solid #00c9a7; }
-.task:nth-child(8) { border-left: 5px solid #ffc75f; }
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
 
+/* Dark Mode */
+body.dark {
+  background: linear-gradient(135deg, #1e1e2f, #121212);
+  color: white;
+}
+
+body.dark .card {
+  background: #2a2a3d;
+}
+
+body.dark .task {
+  background: #3a3a4d;
+}
+
+body.dark button {
+  background: #444;
+  color: white;
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="card">
 
-  <div class="top-bar">
-    <h3>Habit Tracker</h3>
-    <button class="mode-toggle" onclick="toggleMode()">🌙</button>
+  <div class="header">
+    <h2>Habit Tracker</h2>
+    <button id="themeToggle">🌙</button>
   </div>
 
   <div class="toggle-btns">
-    <button class="active">Daily</button>
-    <button>Weekly</button>
+    <button id="dailyBtn" class="active">Daily</button>
+    <button id="weeklyBtn">Weekly</button>
   </div>
 
   <input type="date" id="date">
 
-  <div class="progress-circle" id="progress">0%</div>
-
-  <div id="tasks">
-    <div class="task"><span>Wake Up Early</span><input type="checkbox"></div>
-    <div class="task"><span>Prayer / Meditation</span><input type="checkbox"></div>
-    <div class="task"><span>Study Programming</span><input type="checkbox"></div>
-    <div class="task"><span>Practice English</span><input type="checkbox"></div>
-    <div class="task"><span>Quantitative Aptitude</span><input type="checkbox"></div>
-    <div class="task"><span>Interview Questions</span><input type="checkbox"></div>
-    <div class="task"><span>Vocabulary</span><input type="checkbox"></div>
-    <div class="task"><span>Daily Revision</span><input type="checkbox"></div>
+  <div class="progress-container">
+    <div class="progress-circle" id="progress"></div>
+    <div class="progress-text" id="percent">0%</div>
   </div>
+
+  <div id="tasks"></div>
 
 </div>
 
 <script>
-const checkboxes = document.querySelectorAll("input[type='checkbox']");
+const tasksList = [
+  "Wake Up Early",
+  "Prayer / Meditation",
+  "Study Programming",
+  "Practice English",
+  "Quantitative Aptitude",
+  "Interview Questions",
+  "Vocabulary",
+  "Daily Revision"
+];
+
+const tasksContainer = document.getElementById("tasks");
 const progress = document.getElementById("progress");
+const percent = document.getElementById("percent");
 const dateInput = document.getElementById("date");
-const buttons = document.querySelectorAll(".toggle-btns button");
 
 let mode = "daily";
 
-/* Format date */
-function getDateKey() {
-  return dateInput.value;
+/* Set today */
+dateInput.value = new Date().toISOString().split("T")[0];
+
+/* Render */
+function renderTasks() {
+  tasksContainer.innerHTML = "";
+
+  tasksList.forEach((task, index) => {
+    const div = document.createElement("div");
+    div.className = "task";
+
+    div.innerHTML = `
+      <span>${task}</span>
+      <input type="checkbox" data-index="${index}">
+    `;
+
+    tasksContainer.appendChild(div);
+  });
+
+  loadProgress();
 }
 
-/* Save daily progress */
+/* Get Key */
+function getKey(date) {
+  return "daily-" + date;
+}
+
+/* Last 7 Days */
+function getLast7Days() {
+  let dates = [];
+  for (let i = 0; i < 7; i++) {
+    let d = new Date(dateInput.value);
+    d.setDate(d.getDate() - i);
+    dates.push(d.toISOString().split("T")[0]);
+  }
+  return dates;
+}
+
+/* Save */
 function saveProgress() {
-  let checked = [...checkboxes].filter(cb => cb.checked).length;
-  let total = checkboxes.length;
-  let percent = Math.round((checked / total) * 100);
+  if (mode !== "daily") return;
 
-  localStorage.setItem(getDateKey(), percent);
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
+  const data = [...checkboxes].map(cb => cb.checked);
+
+  localStorage.setItem(getKey(dateInput.value), JSON.stringify(data));
+  updateProgress();
 }
 
-/* Load daily progress */
+/* Load */
 function loadProgress() {
-  let percent = localStorage.getItem(getDateKey()) || 0;
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
 
-  progress.innerText = percent + "%";
-  progress.style.background =
-    `conic-gradient(#4facfe ${percent}%, #eee ${percent}%)`;
-}
-
-/* Update progress */
-function updateProgress() {
   if (mode === "daily") {
-    let total = checkboxes.length;
-    let checked = 0;
+    const saved = JSON.parse(localStorage.getItem(getKey(dateInput.value))) || [];
 
-    checkboxes.forEach(cb => {
-      if (cb.checked) checked++;
+    checkboxes.forEach((cb, i) => {
+      cb.checked = saved[i] || false;
+      cb.disabled = false;
+      cb.onchange = saveProgress;
     });
 
-    let percent = Math.round((checked / total) * 100);
+  } else {
+    const dates = getLast7Days();
 
-    progress.innerText = percent + "%";
-    progress.style.background =
-      `conic-gradient(#4facfe ${percent}%, #eee ${percent}%)`;
+    checkboxes.forEach((cb, i) => {
+      let count = 0;
 
-    saveProgress();
-  }
-}
+      dates.forEach(date => {
+        const data = JSON.parse(localStorage.getItem("daily-" + date)) || [];
+        if (data[i]) count++;
+      });
 
-/* Weekly calculation */
-function calculateWeekly() {
-  let total = 0;
-  let count = 0;
-
-  for (let i = 0; i < 7; i++) {
-    let d = new Date();
-    d.setDate(d.getDate() - i);
-    let key = d.toISOString().split("T")[0];
-
-    let value = parseInt(localStorage.getItem(key));
-
-    if (!isNaN(value)) {
-      total += value;
-      count++;
-    }
+      cb.checked = count >= 4;
+      cb.disabled = true;
+    });
   }
 
-  let avg = count ? Math.round(total / count) : 0;
-
-  progress.innerText = avg + "%";
-  progress.style.background =
-    `conic-gradient(#ff7e5f ${avg}%, #eee ${avg}%)`;
+  updateProgress();
 }
 
-/* Checkbox event */
-checkboxes.forEach(cb => {
-  cb.addEventListener("change", updateProgress);
-});
+/* Animate Progress */
+function animateProgress(target) {
+  let current = 0;
 
-/* Date change */
-dateInput.addEventListener("change", () => {
-  if (mode === "daily") loadProgress();
-});
-
-/* Toggle buttons */
-buttons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    buttons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    mode = btn.innerText.toLowerCase();
-
-    if (mode === "daily") {
-      loadProgress();
+  let interval = setInterval(() => {
+    if (current >= target) {
+      clearInterval(interval);
     } else {
-      calculateWeekly();
+      current++;
+      percent.innerText = current + "%";
+      progress.style.background =
+        `conic-gradient(#4da6ff ${current}%, #ddd ${current}%)`;
+    }
+  }, 10);
+}
+
+/* Update */
+function updateProgress() {
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
+  const total = checkboxes.length;
+  const checked = [...checkboxes].filter(cb => cb.checked).length;
+
+  const percentValue = Math.round((checked / total) * 100);
+
+  animateProgress(percentValue);
+  updateTaskStyles();
+}
+
+/* Task Style */
+function updateTaskStyles() {
+  document.querySelectorAll(".task").forEach(taskDiv => {
+    const cb = taskDiv.querySelector("input");
+
+    if (cb.checked) {
+      taskDiv.classList.add("checked");
+    } else {
+      taskDiv.classList.remove("checked");
     }
   });
-});
+}
+
+/* Mode Switch */
+document.getElementById("dailyBtn").onclick = () => {
+  mode = "daily";
+  setActive("dailyBtn");
+  loadProgress();
+};
+
+document.getElementById("weeklyBtn").onclick = () => {
+  mode = "weekly";
+  setActive("weeklyBtn");
+  loadProgress();
+};
+
+function setActive(id) {
+  document.querySelectorAll(".toggle-btns button")
+    .forEach(btn => btn.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+/* Date change */
+dateInput.addEventListener("change", loadProgress);
+
+/* Theme */
+document.getElementById("themeToggle").onclick = () => {
+  document.body.classList.toggle("dark");
+  localStorage.setItem("theme",
+    document.body.classList.contains("dark") ? "dark" : "light"
+  );
+};
+
+/* Load Theme */
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark");
+}
 
 /* Init */
-dateInput.valueAsDate = new Date();
-loadProgress();
+renderTasks();
 </script>
+
 </body>
 </html>
